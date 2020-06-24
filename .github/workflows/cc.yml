@@ -30,4 +30,4 @@ jobs:
         key: ${{ secrets.DELOYS }}
         port: ${{ secrets.PORT }}
         source: "exclude.zip"
-        target: "/root/test"
+        target: "/root/test/"
