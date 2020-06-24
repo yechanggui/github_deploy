@@ -16,7 +16,11 @@ jobs:
     runs-on: ubuntu-latest   # 使用ubuntu系统镜像运行自动化脚本
 
     steps:  # 自动化步骤
-      
+      - name: set env
+        env:
+          BRANCH: if: ${{ '/www/wwwroot/miss_beauty_dev/' github.ref == 'refs/heads/dev'}} 
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$RUNNER_CONTEXT $BRANCH"
       - uses: actions/checkout@v2   # 第一步，下载代码仓库
         if: ${{github.ref == 'refs/heads/dev'}}
 
