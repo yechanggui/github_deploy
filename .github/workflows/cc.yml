@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master, dev ]
+    paths-ignore:   # 下列文件的变更不触发部署，可以自行添加
+      - README.md
+      - LICENSE
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest   # 使用ubuntu系统镜像运行自动化脚本
+
+    steps:  # 自动化步骤
+    - name: zip file
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r ./exclude.zip ./exclude.zip
+        - uses: actions/checkout@master
+    - name: copy file  ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.DELOYS }}
+        port: ${{ secrets.PORT }}
+        source: "exclude.zip"
+        target: "/root/test"
