@@ -18,7 +18,7 @@ jobs:
     steps:  # 自动化步骤
       
       - uses: actions/checkout@v2   # 第一步，下载代码仓库
-        if: ${{github.ref == 'refs/heads/dev'}
+        if: ${{github.ref == 'refs/heads/dev'}}
 
       - name: Deploy to Server  # 第二步，rsync推文件
         uses: AEnterprise/rsync-deploy@v1.0  # 使用别人包装好的步骤镜像
@@ -29,7 +29,7 @@ jobs:
           FOLDER: ./  # 要推送的文件夹，路径相对于代码仓库的根目录
           SERVER_IP: ${{ secrets.SSH_HOST }}  # 引用配置，服务器的host名（IP或者域名domain.com）
           USERNAME: ${{ secrets.SSH_USERNAME }}  # 引用配置，服务器登录名
-          SERVER_DESTINATION: /root/test/master   # 部署到目标文件夹
+          SERVER_DESTINATION: /root/test/dev   # 部署到目标文件夹
       - name: Restart server   # 第三步，重启服务
         uses: appleboy/ssh-action@master
         with:
@@ -38,5 +38,5 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
           script: |
-            cd /root/test/master
-            python a.py
+            cd /root/test/dev
+            python b.py
