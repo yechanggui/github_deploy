@@ -28,6 +28,6 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.DELOYS }}
-        port: ${{ secrets.PORT }}
+        port: '22'
         source: "exclude.zip"
         target: "/root/test/"
