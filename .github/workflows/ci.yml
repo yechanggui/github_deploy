@@ -25,7 +25,7 @@ jobs:
         if: ${{github.ref == 'refs/heads/dev'}}
         env:
           DEPLOY_KEY: ${{ secrets.DELOYS }}   # 引用配置，SSH私钥
-          ARGS: -avz --delete --exclude='/exclude'   # rsync参数，排除.pyc文件
+          ARGS: -avz --delete --exclude='/exclude /.git'   # rsync参数，排除.pyc文件
           SERVER_PORT: '22'  # SSH端口
           FOLDER: ./  # 要推送的文件夹，路径相对于代码仓库的根目录
           SERVER_IP: ${{ secrets.SSH_HOST }}  # 引用配置，服务器的host名（IP或者域名domain.com）
@@ -33,7 +33,7 @@ jobs:
           SERVER_DESTINATION: /root/test/dev/   # 部署到目标文件夹
       - name: Restart server   # 第三步，重启服务
         uses: appleboy/ssh-action@master
-        if: ${{github.ref == 'refs/heads/dev'}}
+        if: ${{github.ref == 'refs/heads/master'}}
         with:
           host: ${{ secrets.SSH_HOST }}  # 下面三个配置与上一步类似
           username: ${{ secrets.SSH_USERNAME }}
