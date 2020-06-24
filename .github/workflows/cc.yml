@@ -30,6 +30,6 @@ jobs:
         key: ${{ secrets.DELOYS }}
         port: '22'
         source: "./"
-        overwrite: 'p.tar.gz'
+        # overwrite:
         tar_tmp_path: '/root/test/'
         target: "/root/test/"
